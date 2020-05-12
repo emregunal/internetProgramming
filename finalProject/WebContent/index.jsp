@@ -7,9 +7,6 @@
 </head>
 <script type="text/javascript">
 
-
-
-
 </script>
 
 <body>
@@ -32,6 +29,16 @@
 				</td>
 				<td>
 				<input type="submit" id="btnKlnEkle" name="btnKlnEkle" value="Kolon Ekle">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="5">
+				<%
+					do{
+						
+					}while()
+				
+				%>>
 				</td>
 			</tr>
 		</table>
