@@ -1,24 +1,38 @@
 package Classes;
 
 public class Kolon {
-	private String kolonAdi;
-	private String veriTipi;
-	public Kolon(String kolonAdi,String veriTipi) {
-		this.kolonAdi=kolonAdi;
-		this.veriTipi=veriTipi;
+
+	private String columnName;
+	private String dataType;
+	private String columnValue;
+
+	public Kolon(String columnName, String dataType) {
+		this.columnName = columnName;
+		this.dataType = dataType;
 	}
-	public String getKolonAdi() {
-		return kolonAdi;
+
+	public String getColumnName() {
+		return columnName;
 	}
-	public void setKolonAdi(String kolonAdi) {
-		this.kolonAdi = kolonAdi;
+
+	public void setColumnName(String columnName) {
+		this.columnName = columnName;
 	}
-	public String getVeriTipi() {
-		return veriTipi;
+
+	public String getDataType() {
+		return dataType;
 	}
-	public void setVeriTipi(String veriTipi) {
-		this.veriTipi = veriTipi;
+
+	public void setDataType(String dataType) {
+		this.dataType = dataType;
 	}
-	
+
+	public String getColumnValue() {
+		return columnValue;
+	}
+
+	public void setColumnValue(String columnValue) {
+		this.columnValue = columnValue;
+	}
 
 }
