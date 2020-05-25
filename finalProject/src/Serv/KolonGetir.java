@@ -18,53 +18,32 @@ import com.google.gson.Gson;
 
 import Classes.Kolon;
 import Classes.Table;
-import DAO.KayitIslemleri;
 import DAO.TabloIslemleri;
 
-/**
- * Servlet implementation class KolonGetir
- */
 @WebServlet("/KolonGetir")
 public class KolonGetir extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public KolonGetir() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		List<Kolon> tabloListesi = TabloIslemleri.getColumnsByTableName(request.getParameter("tabloAdi"));
-
 		String json = new Gson().toJson(tabloListesi);
-
+		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(json);
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String tabloAdi = request.getParameter("tabloAdi");
 		String columnDegerJSON = request.getParameter("kolonDegerListesi");
-
 		Table table = new Table(tabloAdi);
 		table.setKolonlar(new ArrayList<Kolon>());
-
 		JSONParser parser = new JSONParser();
+		
 		try {
 			JSONArray columnArray = (JSONArray) parser.parse(columnDegerJSON);
 
@@ -78,15 +57,11 @@ public class KolonGetir extends HttpServlet {
 
 				table.getKolonlar().add(kolon);
 			}
-
-			/*
-			 * TABLE OLUSTUR
-			 */
-			KayitIslemleri.degerOlustur(table);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		
+		TabloIslemleri.degerOlustur(table);
 		doGet(request, response);
 	}
 
