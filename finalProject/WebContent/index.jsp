@@ -9,16 +9,15 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
+
 	function callServlet() {
 		$("#frmId").submit();
 		alert('Başarılı');
-
 		document.location.href = "index.jsp";
 		tablolariGetir();
 	}
-
+	
 	function tablolariGetir() {
-
 		$.get("TabloGetir", function(responseJson) {
 			var $select = $("#dropdownlist");
 			$select.find("option").remove();
@@ -26,18 +25,15 @@
 				$("<option>").val(tablo.tabloAdi).text(tablo.tabloAdi)
 						.appendTo($select);
 			});
-
 		});
 	}
-
+	
 	function kolonlariGetir(tabloAdi) {
-
 		var $divKolon = $("#divKolon");
 		var $divKolonDegeri = $("#divKolonDegeri");
-
 		$('#divKolon').html('');
 		$('#divKolonDegeri').html('');
-		//$('#records_table').html('');
+		$('#records_table').html('');
 		var trHTML = '';
 		$.get("KolonGetir", {
 			tabloAdi : tabloAdi
@@ -52,37 +48,32 @@
 	}
 	
 	function degerEkle(){
-		
 		var columnValueList = [];
-		
 		$("tr.kolonSatir").each(function() {
 		    var kolonDeger = $(this).find("input.kolonDeger").val();
 		    var kolonName = $(this).find("input.kolonDeger").attr('id');
-		    
 		    var item = {
 					columnName :kolonName ,
 					columnValue : kolonDeger
 				};
-
 		    columnValueList.push(item);
 		});
-		
 		$.post("KolonGetir",{
 			tabloAdi : $("#seciliTabloAdi").val(),
 			kolonDegerListesi : JSON.stringify(columnValueList)			
 		}, function(responseJson) {
-			
 		});
+		alert("Kayıt Başarılı.")
 	}
-
+	
 	function loadPage() {
 		tablolariGetir();
-
 		var columnList = new Array();
 		sessionStorage.setItem('columnList', JSON.stringify(columnList));
 	}
 	window.onload = loadPage;
-	function ekle() {
+
+		function ekle() {
 		var item = {
 			columnName : document.getElementById("txtKolon").value,
 			dataType : document.getElementById("txtVeri").value
@@ -98,34 +89,27 @@
 		addColumn(item);
 		var btn = document.createElement("TEXT");
 		$("#columnList").val(sessionStorage.getItem('columnList'));
-
 		btn.innerHTML = item.columnName + " - " + item.dataType + "<br>";
 		document.body.appendChild(btn);
-
 	}
-
-	function addColumn(object) {
+	
+		function addColumn(object) {
 		if (JSON.parse(sessionStorage.getItem('columnList')).length == 0) {
-
 			var columnList = [];
 			columnList.push(object);
 			sessionStorage.setItem('columnList', JSON.stringify(columnList));
-
 		} else {
 			var columnList = JSON.parse(sessionStorage.getItem('columnList'));
-
 			columnList.push(object);
 			sessionStorage.setItem('columnList', JSON.stringify(columnList));
 		}
 	};
-
+	
 	function onChangeDropDown(sel) {
 		$("#seciliTabloAdi").val(sel.value);
-
 		kolonlariGetir(sel.value);
 	}
 </script>
-
 <body>
 	<form name="frmDB" id="frmId" action="Servlet" accept-charset="UTF-8"
 		method="post">
@@ -174,15 +158,11 @@
 			<tr>
 				<td colspan="2" align="center"><input type="button" id="kayit2"
 					name="kayit2" value="KAYIT" onClick="degerEkle()"></td>
-
 			</tr>
 		</table>
-
-		<input type="text" name="inpt"></input> <input type="text" name="inpt"></input>
-
-
-		<input type="text" id="seciliTabloAdi" name="seciliTabloAdi"
-			hidden="true">
+		 <input type="text" name="inpt" hidden="true"></input>
+		<input type="text" id="seciliTabloAdi" name="seciliTabloAdi" hidden="true">
 	</form>
 </body>
 </html>
+

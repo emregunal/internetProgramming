@@ -51,13 +51,14 @@ public class KayitIslemleri {
 		for (int i = 0; i < tablo.getKolonlar().size(); i++) {
 			Kolon kolon = tablo.getKolonlar().get(i);
 
+			
+
+			kolonStr += kolon.getColumnName();			
+			kolonDegerStr += kolon.getColumnValue();
 			if (!(i == tablo.getKolonlar().size() - 1)) {
 				kolonStr += ",";
 				kolonDegerStr += ",";
 			}
-
-			kolonStr += kolon.getColumnName();			
-			kolonDegerStr += kolon.getColumnValue();
 		}
 
 		String sorgu = "insert into " + tabloAdi + " (" + kolonStr + ") values (" + kolonDegerStr + ")";
